@@ -1,8 +1,5 @@
 <template>
-  <header>
-    <Heading :h="1">Perfect Colour</Heading>
-    <p>How good is your eye?</p>
-  </header>
+  <footer>Made with <span class="heart">&hearts;</span> by Jason Yu</footer>
 </template>
 
 <script lang="ts">
@@ -18,11 +15,13 @@ export default createComponent({
 </script>
 
 <style lang="stylus" scoped>
-h1 {
-  margin-bottom: 0;
+footer {
+  margin-top: 3rem;
+  background: linear-gradient(141deg, #68cca0 0%, #d6eff1 51%, #2cb5e8 100%);
+  padding: 2rem 1rem 3rem;
 }
 
-p {
-  margin-top: 0.5rem;
+.heart {
+  color: red;
 }
 </style>

@@ -6,6 +6,10 @@
 
     <ColorRect size="l" :color="color"></ColorRect>
     <AnswerForm class="answer-form" @submit="onSubmit" :difficulty="difficulty"></AnswerForm>
+
+    <Results></Results>
+
+    <Footer></Footer>
   </div>
 </template>
 
@@ -13,9 +17,12 @@
 import Vue from 'vue';
 import { ref, createComponent, computed, Ref } from 'vue-function-api';
 import ColorRect from './ColorRect.vue';
-import { randomRGB, rgbToCssColor, RGB } from '../helpers/color';
+import { randomRGB, rgbToCssColor, RGB, isRGBEqual } from '../helpers/color';
 import AnswerForm from './AnswerForm.vue';
 import Header from './Header.vue';
+import Footer from './Footer.vue';
+import { getResults } from '../store/results';
+import Results from './Results.vue';
 
 const useRandomRGB = (difficulty: Ref<number>) => {
   const rgbRef = ref(randomRGB(difficulty.value));
@@ -27,8 +34,9 @@ const useRandomRGB = (difficulty: Ref<number>) => {
 };
 
 export default createComponent({
-  components: { ColorRect, AnswerForm, Header },
+  components: { ColorRect, AnswerForm, Header, Results, Footer },
   setup() {
+    const { addResult } = getResults();
     const difficulty = ref(1);
     const { rgbRef, nextRGB } = useRandomRGB(difficulty);
 
@@ -37,9 +45,9 @@ export default createComponent({
       return rgbToCssColor(rgb);
     });
 
-    const onSubmit = ([answerR, answerG, answerB]: RGB) => {
-      const [r, g, b] = rgbRef.value;
-      const correct = answerR === r && answerG === g && answerB === b;
+    const onSubmit = (answerRGB: RGB) => {
+      const questionRGB = rgbRef.value;
+      const correct = isRGBEqual(questionRGB, answerRGB);
 
       if (correct) {
         difficulty.value = Math.min(255, difficulty.value + 1);
@@ -47,6 +55,7 @@ export default createComponent({
         difficulty.value = Math.max(1, difficulty.value - 1);
       }
 
+      addResult(difficulty.value, questionRGB, answerRGB);
       nextRGB();
     };
 
@@ -77,12 +86,13 @@ html {
 }
 
 .container {
-  max-width: 30rem;
+  max-width: 50rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   text-align: center;
+  padding: 0 1rem;
 }
 
 input, button {

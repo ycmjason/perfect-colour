@@ -45,8 +45,6 @@ export default createComponent({
 <style scoped>
 .rect {
   display: inline-block;
-  width: 5rem;
-  height: 5rem;
   border-radius: 20%;
   border: 1px black solid;
 }
