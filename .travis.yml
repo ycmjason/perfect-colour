@@ -1,0 +1,22 @@
+anguage: node_js
+
+node_js: 10
+
+env:
+  - NODE_ENV=ci
+
+install:
+  - npm ci
+  - npm run build
+
+script:
+  - npm test
+  - npm run build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist
+  on:
+    branch: master
