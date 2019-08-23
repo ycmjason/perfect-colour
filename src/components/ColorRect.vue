@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div :style="style" class="rect"></div>
-  </div>
+  <div :style="style" class="rect"></div>
 </template>
 
 <script lang="ts">

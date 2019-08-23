@@ -4,7 +4,9 @@
 
     <p>Difficulty: {{ difficulty }}</p>
 
-    <ColorRect size="l" :color="color"></ColorRect>
+    <div>
+      <ColorRect size="l" :color="color"></ColorRect>
+    </div>
     <AnswerForm class="answer-form" @submit="onSubmit" :difficulty="difficulty"></AnswerForm>
 
     <Results></Results>
@@ -103,6 +105,7 @@ input, button {
 
 button, input[type=submit] {
   text-align: center;
+  cursor: pointer;
 }
 
 input[type='range'] {
