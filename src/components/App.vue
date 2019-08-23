@@ -7,7 +7,13 @@
     <div>
       <ColorRect size="l" :color="color"></ColorRect>
     </div>
-    <AnswerForm class="answer-form" @submit="onSubmit" :difficulty="difficulty"></AnswerForm>
+    <AnswerForm
+      class="answer-form"
+      :difficulty="difficulty"
+      @submit="onSubmit"
+      @toggleHint="onToggleHint"
+      :showHint="showHint"
+    ></AnswerForm>
 
     <Results></Results>
 
@@ -47,6 +53,9 @@ export default createComponent({
       return rgbToCssColor(rgb);
     });
 
+    const showHint = ref(false);
+    const onToggleHint = (b: boolean) => (showHint.value = b);
+
     const onSubmit = (answerRGB: RGB) => {
       const questionRGB = rgbRef.value;
       const correct = isRGBEqual(questionRGB, answerRGB);
@@ -57,7 +66,12 @@ export default createComponent({
         difficulty.value = Math.max(1, difficulty.value - 1);
       }
 
-      addResult(difficulty.value, questionRGB, answerRGB);
+      addResult({
+        difficulty: difficulty.value,
+        question: questionRGB,
+        answer: answerRGB,
+        usedHint: showHint.value,
+      });
       nextRGB();
     };
 
@@ -65,6 +79,8 @@ export default createComponent({
       difficulty,
       color: cssColorRef,
       onSubmit,
+      showHint,
+      onToggleHint,
     };
   },
 });

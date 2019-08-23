@@ -6,13 +6,15 @@
       <th>&num;</th>
       <th>Difficulty</th>
       <th>Question</th>
-      <th>Your Answer</th>
+      <th>Your answer</th>
+      <th>Used hint?</th>
     </tr>
-    <tr v-for="({ index, difficulty, question, answer, isCorrect }) of rows" :key="index" :class="isCorrect? 'correctBg': 'wrongBg'">
+    <tr v-for="({ index, difficulty, question, answer, isCorrect, usedHint }) of rows" :key="index" :class="isCorrect? 'correctBg': 'wrongBg'">
       <td>{{ index }}</td>
       <td>{{ difficulty }}</td>
       <td><ColorRect :color="question" size="s" class="colorRect"></ColorRect>{{ question }}</td>
       <td><ColorRect :color="answer" size="s" class="colorRect"></ColorRect>{{ answer }}</td>
+      <td>{{ usedHint ? 'Yes' : 'No' }}</td>
     </tr>
   </table>
   <i v-else>Your result will be recorded here.</i>
@@ -32,17 +34,18 @@ export default createComponent({
   setup() {
     const { results } = getResults();
     const rows = computed(() => {
-      return results.value.map(({ difficulty, question, answer }, index) => {
+      return results.value.map(({ difficulty, question, answer, usedHint }, index) => {
         return {
           index,
           difficulty,
           question: `rgb(${question.join(',')})`,
           answer: `rgb(${answer.join(',')})`,
+          usedHint,
           isCorrect: isRGBEqual(question, answer),
         };
       });
     });
-    return { rows, isRGBEqual };
+    return { rows };
   },
 });
 </script>

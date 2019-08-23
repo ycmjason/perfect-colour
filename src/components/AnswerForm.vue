@@ -26,7 +26,8 @@
     </div>
     <div class="c-answer-form__input-group c-answer-form__hint">
       <label class="c-answer-form__hint-label">
-        <input type="checkbox" v-model="showHint" class="c-answer-form__hint-checkbox" /> Show hints?
+        <input type="checkbox" :value="showHint" @change="onToggleHint" class="c-answer-form__hint-checkbox" /> Show
+        hints?
       </label>
       <ColorRect size="s" :color="answerCssColor" v-if="showHint"></ColorRect>
     </div>
@@ -46,6 +47,7 @@ export default createComponent({
   components: { RangeInputWithDisplay, ColorRect },
   props: {
     difficulty: Number,
+    showHint: Boolean,
   },
   setup(props, { emit }) {
     const answerRGB = ref<RGB>([0, 0, 0]);
@@ -55,7 +57,6 @@ export default createComponent({
       answerRGB.value = [0, 0, 0];
     };
 
-    const showHint = ref(false);
     const answerCssColor = computed(() => {
       if (!props.difficulty) return;
       return rgbToCssColor(answerRGB.value);
@@ -66,7 +67,9 @@ export default createComponent({
       return roundToFixed(255 / difficulty, 2);
     });
 
-    return { answerRGB, onSubmit, answerCssColor, showHint, step };
+    const onToggleHint = () => emit('toggleHint', !props.showHint);
+
+    return { answerRGB, onSubmit, answerCssColor, step, onToggleHint };
   },
 });
 </script>

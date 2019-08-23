@@ -6,12 +6,13 @@ type Result = {
   difficulty: number;
   question: RGB;
   answer: RGB;
+  usedHint: boolean;
 };
 
 const useNewResults = () => {
   const results = ref<Result[]>([]);
-  const addResult = (difficulty: number, question: RGB, answer: RGB) => {
-    results.value.push({ difficulty, question, answer });
+  const addResult = ({ difficulty, question, answer, usedHint }: Result) => {
+    results.value.push({ difficulty, question, answer, usedHint });
   };
 
   return { results: readonly(results), addResult };
