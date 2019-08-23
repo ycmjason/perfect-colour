@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit" v-if="answerRGB" class="c-answer-form">
     <p>Mix the RGB to match the color.</p>
-    <div class="c-answer-form__input-group">
+    <div class="c-answer-form__input-group c-answer-form__input-rgb">
       <RangeInputWithDisplay
         class="c-answer-form__input c-answer-form__input-r"
         v-model="answerRGB[0]"
@@ -24,13 +24,13 @@
         :step="step"
       ></RangeInputWithDisplay>
     </div>
-    <div class="c-answer-form__input-group">
+    <div class="c-answer-form__input-group c-answer-form__hint">
       <label class="c-answer-form__hint-label">
         <input type="checkbox" v-model="showHint" class="c-answer-form__hint-checkbox" /> Show hints?
       </label>
       <ColorRect size="s" :color="answerCssColor" v-if="showHint"></ColorRect>
     </div>
-    <input type="submit" />
+    <input type="submit" class="c-answer-form__submit" />
   </form>
 </template>
 
@@ -75,36 +75,43 @@ export default createComponent({
 .c-answer-form {
   display: flex;
   flex-direction: column;
-  width: 100%;
 
   &__input-group {
-    display: flex;
     margin-bottom: 1rem;
   }
 
-  >>> &__input {
-    flex-grow: 1;
-    text-align: center;
+  &__input-rgb {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+  }
 
-    &-r {
-      color: red;
+  &__input-r {
+    color: red;
+  }
+
+  &__input-g {
+    color: green;
+  }
+
+  &__input-b {
+    color: blue;
+  }
+
+  &__hint {
+    display: flex;
+
+    &-label {
+      margin-right: 1rem;
     }
 
-    &-g {
-      color: green;
-    }
-
-    &-b {
-      color: blue;
+    &-checkbox {
+      margin-right: 1rem;
     }
   }
 
-  &__hint-label {
-    margin-right: 1rem;
-  }
-
-  &__hint-checkbox {
-    margin-right: 1rem;
+  &__submit {
+    border-radius: 1rem;
   }
 }
 </style>

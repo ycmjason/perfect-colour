@@ -64,10 +64,12 @@ export default createComponent({
 @require '../styles/vars';
 
 html {
+  font-family: 'Livvic', sans-serif;
   box-sizing: border-box;
 }
 
 *, *::before, *::after {
+  font-family: inherit;
   font-size: inherit;
   box-sizing: inherit;
   color: inherit;
@@ -95,6 +97,11 @@ button, input[type=submit] {
 
 input[type='range'] {
   padding: 0;
+}
+
+.space-1 {
+  width: 1rem;
+  flex-shrink: 0;
 }
 </style>
 

@@ -52,11 +52,14 @@ export default createComponent({
   align-items: stretch;
   position: relative;
   border: 1px solid $border-color;
+  border-radius: 1rem;
   flex-direction: column;
   padding: 1rem;
+  box-sizing: border-box;
 
   &__control {
     margin-top: 1rem;
+    width: 100%;
   }
 }
 </style>
