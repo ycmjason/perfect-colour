@@ -25,4 +25,6 @@ export const normaliseRGB = ([r, g, b]: RGB, max: number): RGB => {
   return [normalise(r), normalise(g), normalise(b)];
 };
 
-export const rgbToCssColor = (r: number, g: number, b: number): string => `rgb(${r}, ${g}, ${b})`;
+export const rgbToCssColor = ([r, g, b]: RGB): string => {
+  return `rgb(${roundToFixed(r, 2)}, ${roundToFixed(g, 2)}, ${roundToFixed(b, 2)})`;
+};

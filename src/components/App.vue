@@ -1,57 +1,105 @@
 <template>
-  <div>
-    <h1>Perfect Colour</h1>
-    <p>Do you have perfect colour?</p>
+  <div class="container">
+    <Header></Header>
 
     <p>Difficulty: {{ difficulty }}</p>
 
-    <ColorRect :color="color"></ColorRect>
-    <AnswerForm @submit="onSubmit" :difficulty="difficulty"></AnswerForm>
+    <ColorRect size="l" :color="color"></ColorRect>
+    <AnswerForm class="answer-form" @submit="onSubmit" :difficulty="difficulty"></AnswerForm>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { value, createComponent, createElement as h, computed } from 'vue-function-api';
+import { ref, createComponent, computed, Ref } from 'vue-function-api';
 import ColorRect from './ColorRect.vue';
 import { randomRGB, rgbToCssColor, RGB } from '../helpers/color';
 import AnswerForm from './AnswerForm.vue';
+import Header from './Header.vue';
 
-const useRandomRGB = (initialDifficulty: number) => {
-  const rgbRef = value(randomRGB(initialDifficulty));
-  const nextRGB = (difficulty: number) => {
-    rgbRef.value = randomRGB(difficulty);
+const useRandomRGB = (difficulty: Ref<number>) => {
+  const rgbRef = ref(randomRGB(difficulty.value));
+  const nextRGB = () => {
+    rgbRef.value = randomRGB(difficulty.value);
   };
 
   return { rgbRef, nextRGB };
 };
 
-export default {
-  components: { ColorRect, AnswerForm },
-  ...createComponent({
-    setup() {
-      const difficultyRef = value(1);
+export default createComponent({
+  components: { ColorRect, AnswerForm, Header },
+  setup() {
+    const difficulty = ref(1);
+    const { rgbRef, nextRGB } = useRandomRGB(difficulty);
 
-      const { rgbRef, nextRGB } = useRandomRGB(1);
+    const cssColorRef = computed(() => {
+      const rgb = rgbRef.value;
+      return rgbToCssColor(rgb);
+    });
 
-      const cssColorRef = computed(() => {
-        const [r, g, b] = rgbRef.value;
-        return rgbToCssColor(r, g, b);
-      });
+    const onSubmit = ([answerR, answerG, answerB]: RGB) => {
+      const [r, g, b] = rgbRef.value;
+      const correct = answerR === r && answerG === g && answerB === b;
 
-      const onSubmit = ([answerR, answerG, answerB]: RGB) => {
-        const [r, g, b] = rgbRef.value;
-        if (answerR === r && answerG === g && answerB === b) {
-          nextRGB(++difficultyRef.value);
-        }
-      };
+      if (correct) {
+        difficulty.value = Math.min(255, difficulty.value + 1);
+      } else {
+        difficulty.value = Math.max(1, difficulty.value - 1);
+      }
 
-      return {
-        difficulty: difficultyRef,
-        color: cssColorRef,
-        onSubmit,
-      };
-    },
-  }),
-};
+      nextRGB();
+    };
+
+    return {
+      difficulty,
+      color: cssColorRef,
+      onSubmit,
+    };
+  },
+});
 </script>
+
+<style lang="stylus">
+@import 'normalize.css';
+@require '../styles/vars';
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  font-size: inherit;
+  box-sizing: inherit;
+  color: inherit;
+  text-align: inherit;
+}
+
+.container {
+  max-width: 30rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+}
+
+input, button {
+  padding: 1rem;
+  border: 1px solid $border-color;
+  background: white;
+}
+
+button, input[type=submit] {
+  text-align: center;
+}
+
+input[type='range'] {
+  padding: 0;
+}
+</style>
+
+<style scoped>
+.answer-form {
+  margin: 1rem 0;
+}
+</style>

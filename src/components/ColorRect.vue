@@ -1,10 +1,23 @@
 <template>
-  <div :style="style"></div>
+  <div>
+    <div :style="style" class="rect"></div>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { value, createComponent, createElement as h, computed } from 'vue-function-api';
+import { createComponent, computed } from 'vue-function-api';
+import { RequiredProp } from '../helpers/vue-types';
+
+type ColorRectSize = 's' | 'l';
+const SIZE_TO_REM = (size: ColorRectSize): string => {
+  switch (size) {
+    case 's':
+      return '1rem';
+    case 'l':
+      return '5rem';
+  }
+};
 
 export default createComponent({
   props: {
@@ -12,18 +25,29 @@ export default createComponent({
       type: String,
       required: true,
     },
+    size: RequiredProp<ColorRectSize>(String),
   },
   setup(props) {
-    return { style: computed(() => ({ background: props.color })) };
+    const style = computed(() => {
+      const { size = 'l' } = props;
+      return {
+        background: props.color,
+        width: SIZE_TO_REM(size),
+        height: SIZE_TO_REM(size),
+      };
+    });
+
+    return { style };
   },
 });
 </script>
 
 <style scoped>
-div {
+.rect {
+  display: inline-block;
   width: 5rem;
   height: 5rem;
-  border-radius: 1rem;
+  border-radius: 20%;
   border: 1px black solid;
 }
 </style>
