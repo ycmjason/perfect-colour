@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <ForkMe></ForkMe>
     <Header></Header>
 
     <p>Difficulty: {{ difficulty }}</p>
@@ -31,6 +32,7 @@ import Header from './Header.vue';
 import Footer from './Footer.vue';
 import { getResults } from '../store/results';
 import Results from './Results.vue';
+import ForkMe from './ForkMe.vue';
 
 const useRandomRGB = (difficulty: Ref<number>) => {
   const rgbRef = ref(randomRGB(difficulty.value));
@@ -42,7 +44,7 @@ const useRandomRGB = (difficulty: Ref<number>) => {
 };
 
 export default createComponent({
-  components: { ColorRect, AnswerForm, Header, Results, Footer },
+  components: { ColorRect, AnswerForm, Header, Results, Footer, ForkMe },
   setup() {
     const { addResult } = getResults();
     const difficulty = ref(1);
