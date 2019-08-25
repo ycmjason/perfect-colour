@@ -1,18 +1,6 @@
-<template>
+<template functional>
   <footer>Made with <span class="heart">&hearts;</span> by Jason Yu</footer>
 </template>
-
-<script lang="ts">
-import { createComponent } from 'vue-function-api';
-import Heading from './Heading';
-
-export default createComponent({
-  components: { Heading },
-  setup() {
-    const title = 'Perfect Colour';
-  },
-});
-</script>
 
 <style lang="stylus" scoped>
 footer {

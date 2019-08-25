@@ -1,4 +1,4 @@
-import { createComponent, createElement as h } from 'vue-function-api';
+import { createElement as h } from 'vue-function-api';
 import { randomRGB, rgbToCssColor } from '../helpers/color';
 import Vue, { VNode } from 'vue';
 
