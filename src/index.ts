@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import VueFunctionApi from 'vue-function-api';
+import VueCompositionApi from '@vue/composition-api';
 
 import App from './components/App.vue';
 
-Vue.use(VueFunctionApi);
+Vue.use(VueCompositionApi);
 
 new Vue({
   render: h => h(App),

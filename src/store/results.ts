@@ -1,4 +1,4 @@
-import { ref } from 'vue-function-api';
+import { ref } from '@vue/composition-api';
 import { readonly } from '../compositions/readonly';
 import { RGB } from '../helpers/color';
 

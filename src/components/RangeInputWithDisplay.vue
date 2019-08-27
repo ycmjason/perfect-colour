@@ -15,14 +15,20 @@
 </template>
 
 <script lang="ts">
-import { ref, createComponent, computed, Ref } from 'vue-function-api';
+import { ref, createComponent } from '@vue/composition-api';
 import { RequiredProp } from '../helpers/vue-types';
 
 const isNumber = (n: any): n is number => {
   return typeof n === 'number';
 };
 
-export default createComponent({
+export default createComponent<{
+  min: number,
+  max: number,
+  value: number,
+  step: number,
+}>({
+  // @ts-ignore
   props: {
     min: RequiredProp(Number),
     max: RequiredProp(Number),
@@ -30,7 +36,7 @@ export default createComponent({
     step: RequiredProp(Number),
   },
   setup(props, { emit }) {
-    const rangeInputRef: Ref<HTMLInputElement | null> = ref(null);
+    const rangeInputRef = ref<HTMLInputElement>(null);
 
     const onInput = () => {
       const rangeInputEl = rangeInputRef.value;
