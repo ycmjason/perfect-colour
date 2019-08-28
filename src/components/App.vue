@@ -74,6 +74,9 @@ export default createComponent({
         answer: answerRGB,
         usedHint: showHint.value,
       });
+
+      showHint.value = false;
+
       nextRGB();
     };
 
