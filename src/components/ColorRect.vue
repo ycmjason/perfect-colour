@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { createComponent, computed } from '@vue/composition-api';
+import { createComponent, computed, PropType } from '@vue/composition-api';
 import { RequiredProp } from '../helpers/vue-types';
 
 type ColorRectSize = 's' | 'l';
@@ -16,11 +16,7 @@ const SIZE_TO_REM = (size: ColorRectSize): string => {
   }
 };
 
-export default createComponent<{
-  color: string,
-  size: ColorRectSize,
-}>({
-  // @ts-ignore
+export default createComponent({
   props: {
     color: RequiredProp(String),
     size: RequiredProp<ColorRectSize>(String),

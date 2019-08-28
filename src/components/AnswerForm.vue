@@ -47,11 +47,9 @@ import RangeInputWithDisplay from './RangeInputWithDisplay.vue';
 import ColorRect from './ColorRect.vue';
 import { RGB, rgbToCssColor } from '../helpers/color';
 import { roundToFixed } from '../helpers/number';
+import { RequiredProp } from '../helpers/vue-types';
 
-export default createComponent<{
-  difficulty?: number;
-  showHint?: boolean;
-}>({
+export default createComponent({
   components: { RangeInputWithDisplay, ColorRect },
   props: {
     difficulty: RequiredProp(Number),

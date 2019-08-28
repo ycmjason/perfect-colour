@@ -22,13 +22,7 @@ const isNumber = (n: any): n is number => {
   return typeof n === 'number';
 };
 
-export default createComponent<{
-  min: number,
-  max: number,
-  value: number,
-  step: number,
-}>({
-  // @ts-ignore
+export default createComponent({
   props: {
     min: RequiredProp(Number),
     max: RequiredProp(Number),
