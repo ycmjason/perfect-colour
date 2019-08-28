@@ -24,10 +24,10 @@ const isNumber = (n: any): n is number => {
 
 export default createComponent({
   props: {
-    min: RequiredProp<number>(Number),
-    max: RequiredProp<number>(Number),
-    value: RequiredProp<number>(Number),
-    step: RequiredProp<number>(Number),
+    min: RequiredProp(Number),
+    max: RequiredProp(Number),
+    value: RequiredProp(Number),
+    step: RequiredProp(Number),
   },
   setup(props, { emit }) {
     const rangeInputRef: Ref<HTMLInputElement | null> = ref(null);

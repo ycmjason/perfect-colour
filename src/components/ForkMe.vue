@@ -17,6 +17,10 @@
   </a>
 </template>
 
+<script lang="ts">
+export default {};
+</script>
+
 <style scoped>
 .github-corner:hover .octo-arm {
   animation: octocat-wave 560ms ease-in-out;

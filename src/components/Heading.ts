@@ -9,7 +9,7 @@ export default Vue.extend({
   props: {
     h: Number,
   },
-  render(_, { props, children }) {
+  render(_, { props, children, data }) {
     const { h: size } = props;
     const title = children.map(c => c.text || '').join(' ');
     if (typeof size !== 'number') return EMPTY_V_NODE;
@@ -21,6 +21,6 @@ export default Vue.extend({
       return h('span', { style }, [c]);
     };
 
-    return h(`h${size}`, title.split('').map(createRandomColorSpan));
+    return h(`h${size}`, data, title.split('').map(createRandomColorSpan));
   },
 });

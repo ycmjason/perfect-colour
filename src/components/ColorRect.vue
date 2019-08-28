@@ -19,17 +19,14 @@ const SIZE_TO_REM = (size: ColorRectSize): string => {
 
 export default createComponent({
   props: {
-    color: {
-      type: String,
-      required: true,
-    },
+    color: RequiredProp(String),
     size: RequiredProp<ColorRectSize>(String),
   },
   setup(props) {
     const style = computed(() => {
-      const { size = 'l' } = props;
+      const { size, color } = props;
       return {
-        background: props.color,
+        background: color,
         width: SIZE_TO_REM(size),
         height: SIZE_TO_REM(size),
       };

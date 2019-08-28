@@ -46,8 +46,8 @@ import { roundToFixed } from '../helpers/number';
 export default createComponent({
   components: { RangeInputWithDisplay, ColorRect },
   props: {
-    difficulty: Number,
-    showHint: Boolean,
+    difficulty: RequiredProp(Number),
+    showHint: RequiredProp(Boolean),
   },
   setup(props, { emit }) {
     const answerRGB = ref<RGB>([0, 0, 0]);
@@ -58,12 +58,11 @@ export default createComponent({
     };
 
     const answerCssColor = computed(() => {
-      if (!props.difficulty) return;
       return rgbToCssColor(answerRGB.value);
     });
 
     const step = computed(() => {
-      const { difficulty = 1 } = props;
+      const { difficulty } = props;
       return roundToFixed(255 / difficulty, 2);
     });
 

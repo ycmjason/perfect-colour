@@ -2,6 +2,10 @@
   <footer>Made with <span class="heart">&hearts;</span> by Jason Yu</footer>
 </template>
 
+<script lang="ts">
+export default {};
+</script>
+
 <style lang="stylus" scoped>
 footer {
   margin-top: 3rem;
