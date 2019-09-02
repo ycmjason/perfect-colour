@@ -2,7 +2,7 @@
   <footer>Made with <span class="heart">&hearts;</span> by Jason Yu</footer>
 </template>
 
-<script lang="ts">
+<script>
 export default {};
 </script>
 

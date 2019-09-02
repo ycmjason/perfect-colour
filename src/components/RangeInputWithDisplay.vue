@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { ref, createComponent, computed, Ref } from 'vue-function-api';
+import { ref, createComponent } from '@vue/composition-api';
 import { RequiredProp } from '../helpers/vue-types';
 
 const isNumber = (n: any): n is number => {
@@ -30,7 +30,7 @@ export default createComponent({
     step: RequiredProp(Number),
   },
   setup(props, { emit }) {
-    const rangeInputRef: Ref<HTMLInputElement | null> = ref(null);
+    const rangeInputRef = ref<HTMLInputElement>(null);
 
     const onInput = () => {
       const rangeInputEl = rangeInputRef.value;

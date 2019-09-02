@@ -3,8 +3,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { createComponent, computed } from 'vue-function-api';
+import { createComponent, computed, PropType } from '@vue/composition-api';
 import { RequiredProp } from '../helpers/vue-types';
 
 type ColorRectSize = 's' | 'l';

@@ -3,7 +3,7 @@
   <Heading :h="2">Results</Heading>
   <table v-if="rows.length > 0">
     <tr>
-      <th>&num;</th>
+      <th>#</th>
       <th>Difficulty</th>
       <th>Question</th>
       <th>Your answer</th>
@@ -22,8 +22,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { createComponent, computed } from 'vue-function-api';
+import { createComponent, computed } from '@vue/composition-api';
 import { isRGBEqual } from '../helpers/color';
 import { getResults } from '../store/results';
 import Heading from './Heading';

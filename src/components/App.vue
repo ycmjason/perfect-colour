@@ -23,8 +23,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { ref, createComponent, computed, Ref } from 'vue-function-api';
+import { ref, createComponent, computed, Ref } from '@vue/composition-api';
 import ColorRect from './ColorRect.vue';
 import { randomRGB, rgbToCssColor, RGB, isRGBEqual } from '../helpers/color';
 import AnswerForm from './AnswerForm.vue';

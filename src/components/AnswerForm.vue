@@ -26,14 +26,8 @@
     </div>
     <div class="c-answer-form__input-group c-answer-form__hint">
       <label class="c-answer-form__hint-label">
-        <input
-          type="checkbox"
-          :checked="showHint"
-          @change="onToggleHint"
-          class="c-answer-form__hint-checkbox"
-          :disabled="showHint"
-        />
-        Show hints?
+        <input type="checkbox" :value="showHint" @change="onToggleHint" class="c-answer-form__hint-checkbox" /> Show
+        hints?
       </label>
       <ColorRect size="s" :color="answerCssColor" v-if="showHint"></ColorRect>
     </div>
@@ -42,12 +36,12 @@
 </template>
 
 <script lang="ts">
-import { ref, createComponent, computed, watch } from 'vue-function-api';
-import { RequiredProp } from '../helpers/vue-types';
+import { ref, createComponent, computed } from '@vue/composition-api';
 import RangeInputWithDisplay from './RangeInputWithDisplay.vue';
 import ColorRect from './ColorRect.vue';
-import { normaliseRGB, RGB, rgbToCssColor } from '../helpers/color';
+import { RGB, rgbToCssColor } from '../helpers/color';
 import { roundToFixed } from '../helpers/number';
+import { RequiredProp } from '../helpers/vue-types';
 
 export default createComponent({
   components: { RangeInputWithDisplay, ColorRect },
