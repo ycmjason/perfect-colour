@@ -26,8 +26,14 @@
     </div>
     <div class="c-answer-form__input-group c-answer-form__hint">
       <label class="c-answer-form__hint-label">
-        <input type="checkbox" :value="showHint" @change="onToggleHint" class="c-answer-form__hint-checkbox" /> Show
-        hints?
+        <input
+          type="checkbox"
+          :checked="showHint"
+          @change="onToggleHint"
+          class="c-answer-form__hint-checkbox"
+          :disabled="showHint"
+        />
+        Show hints?
       </label>
       <ColorRect size="s" :color="answerCssColor" v-if="showHint"></ColorRect>
     </div>
