@@ -15,28 +15,31 @@
 </template>
 
 <script lang="ts">
-import { ref, createComponent } from '@vue/composition-api';
+import { defineComponent, ref } from 'vue';
 import { RequiredProp } from '../helpers/vue-types';
 
 const isNumber = (n: any): n is number => {
   return typeof n === 'number';
 };
 
-export default createComponent({
+export default defineComponent({
   props: {
     min: RequiredProp(Number),
     max: RequiredProp(Number),
     value: RequiredProp(Number),
     step: RequiredProp(Number),
   },
+  emits: {
+    'update:value': (value: number) => true,
+  },
   setup(props, { emit }) {
-    const rangeInputRef = ref<HTMLInputElement>(null);
+    const rangeInputRef = ref<HTMLInputElement | null>(null);
 
     const onInput = () => {
       const rangeInputEl = rangeInputRef.value;
       if (!(rangeInputEl instanceof HTMLInputElement)) return;
 
-      emit('input', Number(rangeInputEl.value));
+      emit('update:value', Number(rangeInputEl.value));
     };
 
     return { onInput, rangeInputRef };

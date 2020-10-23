@@ -1,34 +1,38 @@
 <template>
-<div>
-  <Heading :h="2">Results</Heading>
-  <table v-if="rows.length > 0">
-    <tr>
-      <th>#</th>
-      <th>Difficulty</th>
-      <th>Question</th>
-      <th>Your answer</th>
-      <th>Used hint?</th>
-    </tr>
-    <tr v-for="({ index, difficulty, question, answer, isCorrect, usedHint }) of rows" :key="index" :class="isCorrect? 'correctBg': 'wrongBg'">
-      <td>{{ index }}</td>
-      <td>{{ difficulty }}</td>
-      <td><ColorRect :color="question" size="s" class="colorRect"></ColorRect>{{ question }}</td>
-      <td><ColorRect :color="answer" size="s" class="colorRect"></ColorRect>{{ answer }}</td>
-      <td>{{ usedHint ? 'Yes' : 'No' }}</td>
-    </tr>
-  </table>
-  <i v-else>Your result will be recorded here.</i>
-</div>
+  <div>
+    <Heading :h="2">Results</Heading>
+    <table v-if="rows.length > 0">
+      <tr>
+        <th>#</th>
+        <th>Difficulty</th>
+        <th>Question</th>
+        <th>Your answer</th>
+        <th>Used hint?</th>
+      </tr>
+      <tr
+        v-for="{ index, difficulty, question, answer, isCorrect, usedHint } of rows"
+        :key="index"
+        :class="isCorrect ? 'correctBg' : 'wrongBg'"
+      >
+        <td>{{ index }}</td>
+        <td>{{ difficulty }}</td>
+        <td><ColorRect :color="question" size="s" class="colorRect"></ColorRect>{{ question }}</td>
+        <td><ColorRect :color="answer" size="s" class="colorRect"></ColorRect>{{ answer }}</td>
+        <td>{{ usedHint ? 'Yes' : 'No' }}</td>
+      </tr>
+    </table>
+    <i v-else>Your result will be recorded here.</i>
+  </div>
 </template>
 
 <script lang="ts">
-import { createComponent, computed } from '@vue/composition-api';
+import { computed, defineComponent } from 'vue';
 import { isRGBEqual } from '../helpers/color';
 import { getResults } from '../store/results';
 import Heading from './Heading';
 import ColorRect from './ColorRect.vue';
 
-export default createComponent({
+export default defineComponent({
   components: { Heading, ColorRect },
   setup() {
     const { results } = getResults();

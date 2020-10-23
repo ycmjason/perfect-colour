@@ -29,6 +29,6 @@ export const rgbToCssColor = ([r, g, b]: RGB): string => {
   return `rgb(${roundToFixed(r, 2)}, ${roundToFixed(g, 2)}, ${roundToFixed(b, 2)})`;
 };
 
-export const isRGBEqual = (rgb1: RGB, rgb2: RGB): boolean => {
+export const isRGBEqual = (rgb1: Readonly<RGB>, rgb2: Readonly<RGB>): boolean => {
   return rgb1.every((v, i) => v === rgb2[i]);
 };

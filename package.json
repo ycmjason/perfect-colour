@@ -4,23 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "dev": "vite serve app --outDir ./dist",
+    "build": "vite build app --outDir ./dist",
+    "types": "tsc --noEmit"
   },
   "author": "Jason Yu <me@ycmjason.com>",
   "license": "ISC",
   "dependencies": {
-    "@vue/composition-api": "^0.3.2",
     "normalize.css": "^8.0.1",
-    "parcel-bundler": "^1.12.3",
-    "prettier": "^1.18.2",
-    "vue": "^2.6.10",
-    "vue-hot-reload-api": "^2.3.4"
+    "prettier": "^2.1.2",
+    "vue": "^3.0.2"
   },
   "devDependencies": {
-    "@vue/component-compiler-utils": "^3.0.0",
-    "stylus": "^0.54.7",
-    "typescript": "^3.6.3",
-    "vue-template-compiler": "^2.6.10"
+    "@vue/compiler-sfc": "^3.0.2",
+    "stylus": "^0.54.8",
+    "typescript": "^4.0.3",
+    "vite": "^1.0.0-rc.4"
   }
 }

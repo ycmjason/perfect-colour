@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { ref, createComponent, computed, Ref } from '@vue/composition-api';
+import { ref, defineComponent, computed, Ref } from 'vue';
 import ColorRect from './ColorRect.vue';
 import { randomRGB, rgbToCssColor, RGB, isRGBEqual } from '../helpers/color';
 import AnswerForm from './AnswerForm.vue';
@@ -42,7 +42,7 @@ const useRandomRGB = (difficulty: Ref<number>) => {
   return { rgbRef, nextRGB };
 };
 
-export default createComponent({
+export default defineComponent({
   components: { ColorRect, AnswerForm, Header, Results, Footer, ForkMe },
   setup() {
     const { addResult } = getResults();

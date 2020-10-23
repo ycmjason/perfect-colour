@@ -1,15 +1,15 @@
 <template>
   <header>
     <Heading :h="1">{{ title }}</Heading>
-    <p>How good is your eye?</p>
+    <p>How good are your eyes?</p>
   </header>
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import Heading from './Heading';
 
-export default createComponent({
+export default defineComponent({
   components: { Heading },
   setup() {
     const title = 'Perfect Colour';

@@ -9,7 +9,7 @@ install:
   - npm ci
 
 script:
-  - npm run build -- --public-url /perfect-colour
+  - npm run build -- --base /perfect-colour
 
 deploy:
   provider: pages

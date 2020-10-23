@@ -1,10 +1,6 @@
-<template functional>
+<template>
   <footer>Made with <span class="heart">&hearts;</span> by Jason Yu</footer>
 </template>
-
-<script>
-export default {};
-</script>
 
 <style lang="stylus" scoped>
 footer {

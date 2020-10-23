@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "strict": true,
     "experimentalDecorators": true,
-    "types": ["node"]
+    "types": ["node"],
+    "module": "esnext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "node"
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "tests/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["app/src/**/*.ts", "app/src/**/*.vue", "tests/**/*.ts"]
 }

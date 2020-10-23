@@ -4,21 +4,21 @@
     <div class="c-answer-form__input-group c-answer-form__input-rgb">
       <RangeInputWithDisplay
         class="c-answer-form__input c-answer-form__input-r"
-        v-model="answerRGB[0]"
+        v-model:value="answerRGB[0]"
         :min="0"
         :max="255"
         :step="step"
       ></RangeInputWithDisplay>
       <RangeInputWithDisplay
         class="c-answer-form__input c-answer-form__input-g"
-        v-model="answerRGB[1]"
+        v-model:value="answerRGB[1]"
         :min="0"
         :max="255"
         :step="step"
       ></RangeInputWithDisplay>
       <RangeInputWithDisplay
         class="c-answer-form__input c-answer-form__input-b"
-        v-model="answerRGB[2]"
+        v-model:value="answerRGB[2]"
         :min="0"
         :max="255"
         :step="step"
@@ -42,18 +42,22 @@
 </template>
 
 <script lang="ts">
-import { ref, createComponent, computed } from '@vue/composition-api';
+import { ref, defineComponent, computed } from 'vue';
 import RangeInputWithDisplay from './RangeInputWithDisplay.vue';
 import ColorRect from './ColorRect.vue';
 import { RGB, rgbToCssColor } from '../helpers/color';
 import { roundToFixed } from '../helpers/number';
 import { RequiredProp } from '../helpers/vue-types';
 
-export default createComponent({
+export default defineComponent({
   components: { RangeInputWithDisplay, ColorRect },
   props: {
     difficulty: RequiredProp(Number),
     showHint: RequiredProp(Boolean),
+  },
+  emits: {
+    submit: (rgb: RGB) => true,
+    toggleHint: (isShowHint: boolean) => true,
   },
   setup(props, { emit }) {
     const answerRGB = ref<RGB>([0, 0, 0]);
@@ -63,9 +67,7 @@ export default createComponent({
       answerRGB.value = [0, 0, 0];
     };
 
-    const answerCssColor = computed(() => {
-      return rgbToCssColor(answerRGB.value);
-    });
+    const answerCssColor = computed(() => rgbToCssColor(answerRGB.value));
 
     const step = computed(() => {
       const { difficulty } = props;
