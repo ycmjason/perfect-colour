@@ -1,12 +1,11 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "strict": true,
-    "experimentalDecorators": true,
-    "types": ["node"],
-    "module": "esnext",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "node"
-  },
-  "include": ["app/src/**/*.ts", "app/src/**/*.vue", "tests/**/*.ts"]
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "./tsconfig.node.json"
+		}
+	]
 }

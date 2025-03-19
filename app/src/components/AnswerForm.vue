@@ -42,42 +42,47 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed } from 'vue';
-import RangeInputWithDisplay from './RangeInputWithDisplay.vue';
-import ColorRect from './ColorRect.vue';
-import { RGB, rgbToCssColor } from '../helpers/color';
-import { roundToFixed } from '../helpers/number';
-import { RequiredProp } from '../helpers/vue-types';
+import { computed, defineComponent, ref } from "vue";
+import { type RGB, rgbToCssColor } from "../helpers/color";
+import { roundToFixed } from "../helpers/number";
+import ColorRect from "./ColorRect.vue";
+import RangeInputWithDisplay from "./RangeInputWithDisplay.vue";
 
 export default defineComponent({
-  components: { RangeInputWithDisplay, ColorRect },
-  props: {
-    difficulty: RequiredProp(Number),
-    showHint: RequiredProp(Boolean),
-  },
-  emits: {
-    submit: (rgb: RGB) => true,
-    toggleHint: (isShowHint: boolean) => true,
-  },
-  setup(props, { emit }) {
-    const answerRGB = ref<RGB>([0, 0, 0]);
+	components: { RangeInputWithDisplay, ColorRect },
+	props: {
+		difficulty: {
+			type: Number,
+			required: true,
+		},
+		showHint: {
+			type: Boolean,
+			required: true,
+		},
+	},
+	emits: {
+		submit: (_rgb: RGB) => true,
+		toggleHint: (_isShowHint: boolean) => true,
+	},
+	setup(props, { emit }) {
+		const answerRGB = ref<RGB>([0, 0, 0]);
 
-    const onSubmit = () => {
-      emit('submit', answerRGB.value);
-      answerRGB.value = [0, 0, 0];
-    };
+		const onSubmit = () => {
+			emit("submit", answerRGB.value);
+			answerRGB.value = [0, 0, 0];
+		};
 
-    const answerCssColor = computed(() => rgbToCssColor(answerRGB.value));
+		const answerCssColor = computed(() => rgbToCssColor(answerRGB.value));
 
-    const step = computed(() => {
-      const { difficulty } = props;
-      return roundToFixed(255 / difficulty, 2);
-    });
+		const step = computed(() => {
+			const { difficulty } = props;
+			return roundToFixed(255 / difficulty, 2);
+		});
 
-    const onToggleHint = () => emit('toggleHint', !props.showHint);
+		const onToggleHint = () => emit("toggleHint", !props.showHint);
 
-    return { answerRGB, onSubmit, answerCssColor, step, onToggleHint };
-  },
+		return { answerRGB, onSubmit, answerCssColor, step, onToggleHint };
+	},
 });
 </script>
 

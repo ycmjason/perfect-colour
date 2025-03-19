@@ -3,36 +3,38 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, defineComponent } from 'vue';
-import { RequiredProp } from '../helpers/vue-types';
+import { type PropType, computed, defineComponent } from "vue";
 
-type ColorRectSize = 's' | 'l';
+type ColorRectSize = "s" | "l";
 const SIZE_TO_REM = (size: ColorRectSize): string => {
-  switch (size) {
-    case 's':
-      return '1rem';
-    case 'l':
-      return '5rem';
-  }
+	switch (size) {
+		case "s":
+			return "1rem";
+		case "l":
+			return "5rem";
+	}
 };
 
 export default defineComponent({
-  props: {
-    color: RequiredProp(String),
-    size: RequiredProp<ColorRectSize>(String),
-  },
-  setup(props) {
-    const style = computed(() => {
-      const { size, color } = props;
-      return {
-        background: color,
-        width: SIZE_TO_REM(size),
-        height: SIZE_TO_REM(size),
-      };
-    });
+	props: {
+		color: { type: String, required: true },
+		size: {
+			type: String as PropType<ColorRectSize>,
+			required: true,
+		},
+	},
+	setup(props) {
+		const style = computed(() => {
+			const { size, color } = props;
+			return {
+				background: color,
+				width: SIZE_TO_REM(size),
+				height: SIZE_TO_REM(size),
+			};
+		});
 
-    return { style };
-  },
+		return { style };
+	},
 });
 </script>
 

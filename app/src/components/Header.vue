@@ -6,16 +6,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Heading from './Heading';
+import { defineComponent } from "vue";
+import Heading from "./Heading";
 
 export default defineComponent({
-  components: { Heading },
-  setup() {
-    const title = 'Perfect Colour';
+	components: { Heading },
+	setup() {
+		const title = "Perfect Colour";
 
-    return { title };
-  },
+		return { title };
+	},
 });
 </script>
 

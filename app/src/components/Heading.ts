@@ -1,20 +1,21 @@
-import { randomRGB, rgbToCssColor } from '../helpers/color';
-import { VNode, h, defineComponent, FunctionalComponent } from 'vue';
+import { type FunctionalComponent, h } from "vue";
+import { randomRGB, rgbToCssColor } from "../helpers/color";
 
-const EMPTY_V_NODE = (null as any) as VNode;
+const FunctionalHeading: FunctionalComponent<{ h: number }> = (
+	props,
+	{ slots, ...data },
+) => {
+	const { h: size } = props;
+	if (typeof size !== "number") return null;
 
-const FunctionalHeading: FunctionalComponent<{ h: number }> = (props, { slots, ...data }) => {
-  const { h: size } = props;
-  if (typeof size !== 'number') return EMPTY_V_NODE;
+	const randomColor = () => rgbToCssColor(randomRGB(255));
 
-  const randomColor = () => rgbToCssColor(randomRGB(255));
+	const createRandomColorSpan = (c: Parameters<typeof h>[2]) => {
+		const style = { color: randomColor() };
+		return h("span", { style }, c);
+	};
 
-  const createRandomColorSpan = (c: Parameters<typeof h>[2]) => {
-    const style = { color: randomColor() };
-    return h('span', { style }, c);
-  };
-
-  return h(`h${size}`, data, createRandomColorSpan(slots.default?.()));
+	return h(`h${size}`, data.attrs, createRandomColorSpan(slots.default?.()));
 };
 
 FunctionalHeading.props = { h: Number };

@@ -8,3 +8,10 @@ node_modules
 npm-debug.log*
 .env.local
 .env.*.local
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

@@ -23,80 +23,96 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed, Ref } from 'vue';
-import ColorRect from './ColorRect.vue';
-import { randomRGB, rgbToCssColor, RGB, isRGBEqual } from '../helpers/color';
-import AnswerForm from './AnswerForm.vue';
-import Header from './Header.vue';
-import Footer from './Footer.vue';
-import { getResults } from '../store/results';
-import Results from './Results.vue';
-import ForkMe from './ForkMe.vue';
+import { type Ref, computed, defineComponent, ref } from "vue";
+import {
+	type RGB,
+	isRGBEqual,
+	randomRGB,
+	rgbToCssColor,
+} from "../helpers/color";
+import { getResults } from "../store/results";
+import AnswerForm from "./AnswerForm.vue";
+import ColorRect from "./ColorRect.vue";
+import Footer from "./Footer.vue";
+import ForkMe from "./ForkMe.vue";
+import Header from "./Header.vue";
+import Results from "./Results.vue";
 
 const useRandomRGB = (difficulty: Ref<number>) => {
-  const rgbRef = ref(randomRGB(difficulty.value));
-  const nextRGB = () => {
-    rgbRef.value = randomRGB(difficulty.value);
-  };
+	const rgbRef = ref(randomRGB(difficulty.value));
+	const nextRGB = () => {
+		rgbRef.value = randomRGB(difficulty.value);
+	};
 
-  return { rgbRef, nextRGB };
+	return { rgbRef, nextRGB };
 };
 
 export default defineComponent({
-  components: { ColorRect, AnswerForm, Header, Results, Footer, ForkMe },
-  setup() {
-    const { addResult } = getResults();
-    const difficulty = ref(1);
-    const { rgbRef, nextRGB } = useRandomRGB(difficulty);
+	components: { ColorRect, AnswerForm, Header, Results, Footer, ForkMe },
+	setup() {
+		const { addResult } = getResults();
+		const difficulty = ref(1);
+		const { rgbRef, nextRGB } = useRandomRGB(difficulty);
 
-    const cssColorRef = computed(() => {
-      const rgb = rgbRef.value;
-      return rgbToCssColor(rgb);
-    });
+		const cssColorRef = computed(() => {
+			const rgb = rgbRef.value;
+			return rgbToCssColor(rgb);
+		});
 
-    const showHint = ref(false);
-    const onToggleHint = (b: boolean) => (showHint.value = b);
+		const showHint = ref(false);
+		const onToggleHint = (b: boolean) => {
+			showHint.value = b;
+		};
 
-    const onSubmit = (answerRGB: RGB) => {
-      const questionRGB = rgbRef.value;
-      const correct = isRGBEqual(questionRGB, answerRGB);
+		const onSubmit = (answerRGB: RGB) => {
+			const questionRGB = rgbRef.value;
+			const correct = isRGBEqual(questionRGB, answerRGB);
 
-      if (correct) {
-        difficulty.value = Math.min(255, difficulty.value + 1);
-      } else {
-        difficulty.value = Math.max(1, difficulty.value - 1);
-      }
+			if (correct) {
+				difficulty.value = Math.min(255, difficulty.value + 1);
+			} else {
+				difficulty.value = Math.max(1, difficulty.value - 1);
+			}
 
-      addResult({
-        difficulty: difficulty.value,
-        question: questionRGB,
-        answer: answerRGB,
-        usedHint: showHint.value,
-      });
+			addResult({
+				difficulty: difficulty.value,
+				question: questionRGB,
+				answer: answerRGB,
+				usedHint: showHint.value,
+			});
 
-      showHint.value = false;
+			showHint.value = false;
 
-      nextRGB();
-    };
+			nextRGB();
+		};
 
-    return {
-      difficulty,
-      color: cssColorRef,
-      onSubmit,
-      showHint,
-      onToggleHint,
-    };
-  },
+		return {
+			difficulty,
+			color: cssColorRef,
+			onSubmit,
+			showHint,
+			onToggleHint,
+		};
+	},
 });
 </script>
 
 <style lang="stylus">
-@import 'normalize.css';
+@import 'modern-normalize/modern-normalize.css';
 @require '../styles/vars';
+
+h1 {
+	font-size: 2.5rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
 
 html {
   font-family: 'Livvic', sans-serif;
   box-sizing: border-box;
+	font-size: 16px;
 }
 
 *, *::before, *::after {

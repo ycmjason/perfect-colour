@@ -26,30 +26,32 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { isRGBEqual } from '../helpers/color';
-import { getResults } from '../store/results';
-import Heading from './Heading';
-import ColorRect from './ColorRect.vue';
+import { computed, defineComponent } from "vue";
+import { isRGBEqual } from "../helpers/color";
+import { getResults } from "../store/results";
+import ColorRect from "./ColorRect.vue";
+import Heading from "./Heading";
 
 export default defineComponent({
-  components: { Heading, ColorRect },
-  setup() {
-    const { results } = getResults();
-    const rows = computed(() => {
-      return results.value.map(({ difficulty, question, answer, usedHint }, index) => {
-        return {
-          index,
-          difficulty,
-          question: `rgb(${question.join(',')})`,
-          answer: `rgb(${answer.join(',')})`,
-          usedHint,
-          isCorrect: isRGBEqual(question, answer),
-        };
-      });
-    });
-    return { rows };
-  },
+	components: { Heading, ColorRect },
+	setup() {
+		const { results } = getResults();
+		const rows = computed(() => {
+			return results.value.map(
+				({ difficulty, question, answer, usedHint }, index) => {
+					return {
+						index,
+						difficulty,
+						question: `rgb(${question.join(",")})`,
+						answer: `rgb(${answer.join(",")})`,
+						usedHint,
+						isCorrect: isRGBEqual(question, answer),
+					};
+				},
+			);
+		});
+		return { rows };
+	},
 });
 </script>
 

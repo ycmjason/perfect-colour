@@ -15,35 +15,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { RequiredProp } from '../helpers/vue-types';
-
-const isNumber = (n: any): n is number => {
-  return typeof n === 'number';
-};
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
-  props: {
-    min: RequiredProp(Number),
-    max: RequiredProp(Number),
-    value: RequiredProp(Number),
-    step: RequiredProp(Number),
-  },
-  emits: {
-    'update:value': (value: number) => true,
-  },
-  setup(props, { emit }) {
-    const rangeInputRef = ref<HTMLInputElement | null>(null);
+	props: {
+		min: {
+			type: Number,
+			required: true,
+		},
+		max: {
+			type: Number,
+			required: true,
+		},
+		value: {
+			type: Number,
+			required: true,
+		},
+		step: {
+			type: Number,
+			required: true,
+		},
+	},
+	emits: {
+		"update:value": (_value: number) => true,
+	},
+	setup(_props, { emit }) {
+		const rangeInputRef = ref<HTMLInputElement | null>(null);
 
-    const onInput = () => {
-      const rangeInputEl = rangeInputRef.value;
-      if (!(rangeInputEl instanceof HTMLInputElement)) return;
+		const onInput = () => {
+			const rangeInputEl = rangeInputRef.value;
+			if (!(rangeInputEl instanceof HTMLInputElement)) return;
 
-      emit('update:value', Number(rangeInputEl.value));
-    };
+			emit("update:value", Number(rangeInputEl.value));
+		};
 
-    return { onInput, rangeInputRef };
-  },
+		return { onInput, rangeInputRef };
+	},
 });
 </script>
 
