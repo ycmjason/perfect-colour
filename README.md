@@ -1,5 +1,6 @@
 # Perfect Colour
-[![Build Status](https://travis-ci.com/ycmjason/perfect-colour.svg?branch=master)](https://travis-ci.com/ycmjason/perfect-colour)
+
+[![Deploy to GitHub Pages](https://github.com/ycmjason/perfect-colour/actions/workflows/cd.yml/badge.svg)](https://github.com/ycmjason/perfect-colour/actions/workflows/cd.yml)
 
 How good is your eye? How accurate can you identify a colour?
 
