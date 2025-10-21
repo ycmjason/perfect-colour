@@ -21,7 +21,7 @@
 		"@vue/tsconfig": "^0.7.0",
 		"stylus": "^0.64.0",
 		"typescript": "~5.7.2",
-		"vite": "^6.2.0",
+		"vite": "^6.4.1",
 		"vue-tsc": "^2.2.4"
 	},
 	"author": "Jason Yu <me@ycmjason.com>",
